@@ -105,11 +105,9 @@ export default function DutyPersonnel() {
   const [saving,    setSaving]    = useState(false);
   const [filter,    setFilter]    = useState('All');
 
-  const { role }    = useAuth();
-  const isSuperAdmin = role === 'superadmin';
-  const isAdmin      = role === 'admin';
-  // Superadmin: full access. Admin: view only. Normal user: can add/edit.
-  const canModify    = isSuperAdmin || role === 'user';
+  const { role } = useAuth();
+  // All authenticated roles can add personnel and update duty status
+  const canModify = role === 'superadmin' || role === 'admin' || role === 'user';
 
   const load = async () => {
     const data = await personnelApi.list();

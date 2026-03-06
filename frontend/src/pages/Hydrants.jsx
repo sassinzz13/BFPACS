@@ -104,9 +104,8 @@ export default function Hydrants() {
   const [nearby,    setNearby]    = useState(null);
 
   const { role } = useAuth();
-  const isSuperAdmin = role === 'superadmin';
-  // Superadmin: full access. Admin: view only. Normal user: can add/edit.
-  const isAdmin  = isSuperAdmin || role === 'user';
+  // All authenticated roles can add/edit hydrants
+  const isAdmin = role === 'superadmin' || role === 'admin' || role === 'user';
 
   const load = async () => {
     const data = await hydrantsApi.list();
